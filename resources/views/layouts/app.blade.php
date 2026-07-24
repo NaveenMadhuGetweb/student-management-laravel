@@ -38,7 +38,11 @@
 
             <div class="container mt-5">
                 <h2 class="mb-4">Student Management System</h2>
-
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 @yield('content')
             </div>
 
