@@ -10,6 +10,22 @@
     </div>
 @endif
 
+<div class="row mb-3">
+    <div class="col-md-6">
+        <form action="{{ route('students.index') }}" method="GET">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search by Name or Department" value="{{ $search }}">
+                <button class="btn btn-primary">
+                    Search
+                </button>
+                <a href="{{ route('students.index') }}" class="btn btn-secondary">
+                    Reset
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -21,7 +37,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($students as $student)
+        @forelse($students as $student)
         <tr>
             <td>{{ $student->id }}</td>
             <td>{{ $student->name }}</td>
@@ -40,7 +56,14 @@
                 </form>
             </td>
         </tr>
-        @endforeach
+        @empty
+        <tr>
+            <td colspan="6" class="text-center text-danger">
+                No students found.
+            </td>
+        </tr>
+        @endforelse
+
     </tbody>
 </table>
 
