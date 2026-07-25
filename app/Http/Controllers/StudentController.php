@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -44,13 +45,27 @@ class StudentController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:students',
-            'department' => 'required'
+            'department' => 'required',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        Student::create($request->all());
+        // Student::create($request->all());
+    
+        $photoName = null;
 
-        return redirect()->route('students.index')
-                         ->with('success', 'Student added successfully');
+        if ($request->hasFile('photo')) {
+            $photoName = time() . '.' . $request->photo->extension();
+            $request->photo->storeAs('students', $photoName, 'public');
+        }
+        Student::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'department' => $request->department,
+            // 'phone' => $request->phone,
+            'photo' => $photoName,
+        ]);
+
+        return redirect()->route('students.index') ->with('success', 'Student added successfully');
     }
 
     /**
@@ -81,11 +96,41 @@ class StudentController extends Controller
                 // 'phone'=>'required'
             ]);
 
+            // dd($request ,$student->photo);
+            if ($request->hasFile('photo')) {
+
+                // Delete old photo
+                if ($student->photo && Storage::disk('public')->exists('students/'.$student->photo) ) {
+
+                    Storage::disk('public')->delete('students/'.$student->photo);
+                }
+
+                $photoName = time().'.'.$request->photo->extension();
+
+                $request->photo->storeAs(
+                    'students',
+                    $photoName,
+                    'public'
+                );
+
+                // $student->photo = $photoName;
+            }elseif(!$request->hasFile('photo') && !$student->photo ){
+                 $photoName = null;
+            }elseif($student->photo){
+                $photoName = $student->photo;
+            }
+
+        	// $student->name = $request->name;
+        	// $student->email = $request->email;
+        	// $student->department = $request->department;
+        	// $student->phone = $request->phone;
+        	// $student->save();
+
             $student->update([
                 'name'=>$request->name,
                 'email'=>$request->email,
-                'department'=>$request->department
-                // 'phone'=>$request->phone
+                'department'=>$request->department,
+                'photo'=>$photoName
 
             ]);
 
