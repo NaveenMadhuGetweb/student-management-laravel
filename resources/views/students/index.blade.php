@@ -48,6 +48,9 @@
             <td>{{ $student->email }}</td>
             <td>{{ $student->department }}</td>
             <td>
+                <a href="{{ route('students.show', $student->id) }}" class="btn btn-info btn-sm">
+                    View
+                </a>
                 <a href="{{ route('students.edit', $student->id) }}" class="btn btn-warning btn-sm">
                     Edit
                 </a>
