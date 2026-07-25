@@ -20,8 +20,10 @@ class StudentController extends Controller
         $students = Student::when($search, function ($query, $search) {
             return $query->where('name', 'like', "%{$search}%")
                         ->orWhere('department', 'like', "%{$search}%");
-        })->get();
-
+        })
+        ->paginate(10)
+        ->withQueryString();    //For Ex: students?search=Computer&page=2 -> without using this the search filter would be lost when changing pages
+        // dd($students); exit;
         return view('students.index', compact('students', 'search'));
 
     }

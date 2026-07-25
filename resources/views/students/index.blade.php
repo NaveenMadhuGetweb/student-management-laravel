@@ -26,6 +26,10 @@
     </div>
 </div>
 
+    <p class="fw-bold">
+	    Total Students : {{ $students->total() }}
+	</p>
+
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -66,5 +70,8 @@
 
     </tbody>
 </table>
-
+	<div class="mt-3">
+	    {{ $students->links() }}
+	</div>
+    
 @endsection
