@@ -33,6 +33,7 @@
 <table class="table table-bordered">
     <thead>
         <tr>
+            <th>Photo</th>
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
@@ -43,6 +44,13 @@
     <tbody>
         @forelse($students as $student)
         <tr>
+            <td>
+                @if($student->photo)
+            	    <img src="{{ asset('storage/students/'.$student->photo) }}" width="60" height="60" class="rounded">
+                @elseif($student->photo == null)
+            	    No Photo
+                @endif
+            </td>
             <td>{{ $student->id }}</td>
             <td>{{ $student->name }}</td>
             <td>{{ $student->email }}</td>

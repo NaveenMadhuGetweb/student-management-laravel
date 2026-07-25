@@ -6,6 +6,9 @@
         <h3>Student Details</h3>
     </div>
     <div class="card-body">
+        @if($student->photo)
+	        <img src="{{ asset('storage/students/'.$student->photo) }}" width="180" class="img-thumbnail">
+        @endif
         <p><strong>ID :</strong> {{ $student->id }}</p>
         <p><strong>Name :</strong> {{ $student->name }}</p>
         <p><strong>Email :</strong> {{ $student->email }}</p>
