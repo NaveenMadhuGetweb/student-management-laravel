@@ -38,6 +38,10 @@
             <th>Name</th>
             <th>Email</th>
             <th>Department</th>
+            <th>Phone</th>
+            <th>Gender</th>
+            <th>DOB</th>
+            <th>Address</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -55,6 +59,10 @@
             <td>{{ $student->name }}</td>
             <td>{{ $student->email }}</td>
             <td>{{ $student->department }}</td>
+            <td>{{ $student->phone }}</td>
+            <td>{{ $student->gender }}</td>
+            <td>{{ $student->date_of_birth }}</td>
+            <td>{{ $student->address }}</td>
             <td>
                 <a href="{{ route('students.show', $student->id) }}" class="btn btn-info btn-sm">
                     View

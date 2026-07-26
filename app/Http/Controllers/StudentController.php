@@ -47,6 +47,10 @@ class StudentController extends Controller
             'email' => 'required|email|unique:students',
             'department' => 'required',
             'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'phone'=>'required|digits:10',
+            'gender'=>'required',
+            'date_of_birth'=>'required|date',
+            'address'=>'required'
         ]);
 
         // Student::create($request->all());
@@ -61,8 +65,11 @@ class StudentController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'department' => $request->department,
-            // 'phone' => $request->phone,
+            'phone' => $request->phone,
             'photo' => $photoName,
+            'gender'=>$request->gender,
+            'date_of_birth'=>$request->date_of_birth,
+            'address'=>$request->address
         ]);
 
         return redirect()->route('students.index') ->with('success', 'Student added successfully');
@@ -88,15 +95,19 @@ class StudentController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Student $student)
-    {
+    {//dd("hi",$request-all() ,$student->photo);
             $request->validate([
                 'name'=>'required',
                 'email'=>'required|email',
-                'department'=>'required'
-                // 'phone'=>'required'
+                'department'=>'required',
+                'phone'=>'required|digits:10',
+                'gender'=>'required',
+                'date_of_birth'=>'required|date',
+                'address'=>'required',
+                'photo'=>'nullable|image|mimes:jpg,jpeg,png|max:2048'
             ]);
 
-            // dd($request ,$student->photo);
+            //dd($request ,$student->photo);
             if ($request->hasFile('photo')) {
 
                 // Delete old photo
@@ -130,8 +141,11 @@ class StudentController extends Controller
                 'name'=>$request->name,
                 'email'=>$request->email,
                 'department'=>$request->department,
-                'photo'=>$photoName
-
+                'photo'=>$photoName,
+                'gender'=>$request->gender,
+                'date_of_birth'=>$request->date_of_birth,
+                'address'=>$request->address,
+                'phone'=>$request->phone
             ]);
 
             return redirect()

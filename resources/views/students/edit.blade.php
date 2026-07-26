@@ -22,10 +22,27 @@
         <input type="text" name="department" class="form-control" value="{{ $student->department }}">
     </div>
 
-    {{-- <div class="mb-3">
+    <div class="mb-3">
         <label>Phone</label>
         <input type="text" name="phone" class="form-control" value="{{ $student->phone }}">
-    </div> --}}
+    </div>
+    <div class="mb-3">
+        <label>Gender</label>
+        <select name="gender" class="form-control">
+                <option value="">Select Gender</option> 
+                <option value="Male" {{ old('gender',$student->gender)=='Male' ? 'selected' : '' }}>Male</option>
+                <option value="Female"{{ old('gender',$student->gender)=='Female' ? 'selected' : '' }} >Female</option>
+                <option value="Other">Other</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Date of Birth</label>
+        <input type="date" name="date_of_birth" class="form-control" value="{{ old('date_of_birth',$student->date_of_birth) }}">
+    </div>
+    <div class="mb-3">
+        <label>Address</label>
+        <textarea name="address" rows="4" class="form-control">{{ old('address',$student->address) }}</textarea>
+    </div>
     <div class="mb-3">
         <label>Current Photo</label>
         @if($student->photo)
