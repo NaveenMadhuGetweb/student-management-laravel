@@ -19,7 +19,15 @@
 
     <div class="mb-3">
         <label>Department</label>
-        <input type="text" name="department" class="form-control" required>
+        {{-- <input type="text" name="department" class="form-control" required> --}}
+        <select name="department_id" class="form-control">
+            <option value="">Select Department</option>
+            @foreach($departments as $department)
+                <option value="{{ $department->id }}">
+                    {{ $department->department_name }}
+                </option>
+            @endforeach
+        </select>
     </div>
     <div class="mb-3">
         <label>Phone</label>

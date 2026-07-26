@@ -38,6 +38,11 @@
 
             <div class="container mt-5">
                 <h2 class="mb-4">Student Management System</h2>
+                <a class="btn btn-primary" href="{{ route('dashboard') }}">Dashboard</a>
+                <a class="btn btn-success" href="{{ route('students.index') }}">Students</a>
+                <a class="btn btn-warning" href="{{ route('departments.index') }}">Departments</a>
+
+
                 @if(session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}

@@ -19,7 +19,15 @@
 
     <div class="mb-3">
         <label>Department</label>
-        <input type="text" name="department" class="form-control" value="{{ $student->department }}">
+        {{-- <input type="text" name="department" class="form-control" value="{{ $student->department }}"> --}}
+        <select name="department_id" class="form-control">
+            @foreach($departments as $department)
+                <option value="{{ $department->id }}"
+                    {{ $student->department_id == $department->id ? 'selected' : '' }}>
+                    {{ $department->department_name }}
+                </option>
+            @endforeach
+        </select>
     </div>
 
     <div class="mb-3">
