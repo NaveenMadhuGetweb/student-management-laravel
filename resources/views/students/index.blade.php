@@ -2,7 +2,7 @@
 
 @section('content')
 
-<a href="{{ route('students.create') }}" class="btn btn-success mb-3">Add Student</a>
+<a href="{{ route('students.create') }}" class="btn btn-success">Add Student</a>
 
 @if(session('success'))
     <div class="alert alert-success">
@@ -11,7 +11,7 @@
 @endif
 
 <div class="row mb-3">
-    <div class="col-md-6">
+    <div class="col-md-6 mt-3">
         <form action="{{ route('students.index') }}" method="GET">
             <div class="input-group">
                 <input type="text" name="search" class="form-control" placeholder="Search by Name or Department" value="{{ $search }}">

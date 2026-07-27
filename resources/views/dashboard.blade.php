@@ -2,8 +2,6 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}
-            <a style="background-color:antiquewhite;" class="btn btn-primary" href="{{ route('students.index') }}">Manage Students</a>
-            <a style="background-color:yellow;" class="btn btn-success" href="{{ route('students.create') }}">Add Students</a>
         </h2>
         
     </x-slot>
@@ -17,4 +15,57 @@
             </div>
         </div>
     </div>
+
+@section('content')
+<div class="container">
+    <div class="row mt-5">
+        
+        <div class="col-md-4 mb-4">
+            <a href="{{ route('students.index') }}" class="text-decoration-none">
+                <div class="card shadow text-bg-primary">
+                    <div class="card-body text-center">                        
+                        <h5><i class="bi bi-people-fill"></i> Total Students</h5>
+                        <h2>{{ $totalStudents }}</h2>
+                    </div>
+                </div>
+            </a>    
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{{ route('departments.index') }}" class="text-decoration-none">
+                <div class="card shadow text-bg-primary">
+                    <div class="card-body text-center">
+                        <h5><i class="bi bi-building"></i> Departments</h5>
+                        <h2>{{ $totalDepartments }}</h2>
+                    </div>
+                </div>
+            </a>    
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow text-bg-primary">
+                <div class="card-body text-center">                        
+                    <h5><i class="bi bi-person-plus-fill"></i> New This Month</h5>
+                    <h2>{{ $newStudents }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow text-bg-primary">
+                <div class="card-body text-center">                        
+                    <h5><i class="bi bi-gender-male"></i> Male Students</h5>
+                    <h2>{{ $maleStudents }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow text-bg-primary">
+                <div class="card-body text-center">                        
+                    <h5><i class="bi bi-gender-female"></i> Female Students</h5>
+                    <h2>{{ $femaleStudents }}</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@endsection
 </x-app-layout>
