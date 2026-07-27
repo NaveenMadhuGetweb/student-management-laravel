@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,7 +35,10 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('students.create');
+        $departments = Department::all();
+        // return view('students.create');
+        return view('students.create', compact('departments'));
+
     }
 
     /**
@@ -45,7 +49,7 @@ class StudentController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:students',
-            'department' => 'required',
+            'department_id' => 'required|exists:departments,id',
             'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'phone'=>'required|digits:10',
             'gender'=>'required',
@@ -64,7 +68,7 @@ class StudentController extends Controller
         Student::create([
             'name' => $request->name,
             'email' => $request->email,
-            'department' => $request->department,
+            'department_id' => $request->department_id,
             'phone' => $request->phone,
             'photo' => $photoName,
             'gender'=>$request->gender,
@@ -88,7 +92,10 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-         return view('students.edit', compact('student'));
+        	$departments = Department::all();
+        //  return view('students.edit', compact('student'));
+        	return view('students.edit', compact('student', 'departments'));
+
     }
 
     /**
@@ -99,7 +106,7 @@ class StudentController extends Controller
             $request->validate([
                 'name'=>'required',
                 'email'=>'required|email',
-                'department'=>'required',
+                'department_id' => 'required|exists:departments,id',
                 'phone'=>'required|digits:10',
                 'gender'=>'required',
                 'date_of_birth'=>'required|date',
@@ -140,7 +147,7 @@ class StudentController extends Controller
             $student->update([
                 'name'=>$request->name,
                 'email'=>$request->email,
-                'department'=>$request->department,
+                'department_id'=>$request->department_id,
                 'photo'=>$photoName,
                 'gender'=>$request->gender,
                 'date_of_birth'=>$request->date_of_birth,

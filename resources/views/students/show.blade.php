@@ -12,7 +12,7 @@
         <p><strong>ID :</strong> {{ $student->id }}</p>
         <p><strong>Name :</strong> {{ $student->name }}</p>
         <p><strong>Email :</strong> {{ $student->email }}</p>
-        <p><strong>Department :</strong> {{ $student->department }}</p>
+        <p><strong>Department :</strong> {{ $student->department?->department_name }}</p>
         <p><strong>Phone :</strong> {{ $student->phone }}</p>
         <p><strong>Gender :</strong> {{ $student->gender }}</p>
         <p><strong>Date Of Birth :</strong> {{ $student->date_of_birth }}</p>

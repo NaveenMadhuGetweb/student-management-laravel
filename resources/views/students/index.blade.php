@@ -58,7 +58,7 @@
             <td>{{ $student->id }}</td>
             <td>{{ $student->name }}</td>
             <td>{{ $student->email }}</td>
-            <td>{{ $student->department }}</td>
+            <td>{{ $student->department?->department_name }}</td> <!-- ? This prevents errors if department_id is NULL. -->
             <td>{{ $student->phone }}</td>
             <td>{{ $student->gender }}</td>
             <td>{{ $student->date_of_birth }}</td>
