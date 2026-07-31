@@ -13,15 +13,20 @@ class StudentController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
+    {//dd($request->search);
         $students = Student::all();
         // return view('students.index', compact('students'));
         
         $search = $request->search;
 
         $students = Student::when($search, function ($query, $search) {
-            return $query->where('name', 'like', "%{$search}%")
-                        ->orWhere('department', 'like', "%{$search}%");
+            // return $query->where('name', 'like', "%{$search}%")
+            //             ->orWhere('department', 'like', "%{$search}%");
+        
+            return  $query->where('name', 'like', "%{$search}%")
+                  ->orWhereHas('department', function ($q) use ($search) {
+                      $q->where('department_name', 'like', "%{$search}%");
+                  });
         })
         ->paginate(10)
         ->withQueryString();    //For Ex: students?search=Computer&page=2 -> without using this the search filter would be lost when changing pages
