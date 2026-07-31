@@ -36,3 +36,5 @@ Route::put('/students/{student}', [StudentController::class, 'update'])->name('s
 Route::delete('/students/{student}', [StudentController::class, 'destroy'])->name('students.destroy');
 
 Route::resource('departments', DepartmentController::class);
+
+Route::post('/check-email', [StudentController::class, 'checkEmail'])->name('students.checkEmail');

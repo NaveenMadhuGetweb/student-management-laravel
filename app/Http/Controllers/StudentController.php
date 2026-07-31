@@ -171,4 +171,14 @@ class StudentController extends Controller
             ->route('students.index')
             ->with('success', 'Student deleted successfully.');
     }
+
+    public function checkEmail(Request $request)
+    {
+        $exists = Student::where('email', $request->email)->exists();
+
+        return response()->json([
+            'exists' => $exists
+        ]);
+    }
+
 }

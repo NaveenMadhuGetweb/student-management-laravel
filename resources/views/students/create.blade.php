@@ -14,7 +14,8 @@
 
     <div class="mb-3">
         <label>Email</label>
-        <input type="email" name="email" class="form-control" required>
+        <input type="email" name="email" id="email" class="form-control" required>
+         <small id="emailMessage"></small>
     </div>
 
     <div class="mb-3">
@@ -56,7 +57,45 @@
     </div>
 
 
-    <button type="submit" class="btn btn-primary">Save Student</button>
+    <button type="submit"  id="saveBtn" class="btn btn-primary">Save Student</button>
 </form>
+
+
+<script>
+    // console.log("helo");
+    $(document).ready(function () {
+
+        $('#email').blur(function () {
+            // console.log("hii");
+            let email = $(this).val();
+            if(email == ''){
+                $('#emailMessage').html('');
+                return;
+            }
+            $.ajax({
+                url: "{{ route('students.checkEmail') }}",
+                type: "POST",
+                data: {
+                    email: email,
+                    _token: "{{ csrf_token() }}"
+                },
+                success:function(response){
+                    // console.log(response,"|||" ,  response.exists);
+                    if(response.exists){
+                        $('#emailMessage').html('<span class="text-danger">Email already exists</span>');
+                    }
+                    else{
+                        $('#emailMessage').html('<span class="text-success">Email available</span>');
+                    }
+                    // else{
+                    //     $('#emailMessage').html('<span class="text-success">Email available</span>');
+                    //     $('#saveBtn').prop('disabled', false);
+                    // }
+                }
+            });
+
+        });
+    });    
+</script>
 
 @endsection
