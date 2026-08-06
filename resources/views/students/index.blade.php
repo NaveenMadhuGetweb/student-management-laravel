@@ -70,6 +70,8 @@
                 <a href="{{ route('students.edit', $student->id) }}" class="btn btn-warning btn-sm">
                     Edit
                 </a>
+
+                @if(auth()->user()->role == 'admin')
                 <form action="{{ route('students.destroy', $student->id) }}" method="POST" style="display:inline">
                     @csrf
                     @method('DELETE')                
@@ -77,6 +79,7 @@
                         Delete
                     </button>
                 </form>
+                @endif
             </td>
         </tr>
         @empty
