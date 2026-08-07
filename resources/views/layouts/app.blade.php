@@ -42,7 +42,14 @@
 
             <div class="container mt-5">
                 <h2 class="mb-4">Student Management System</h2>
-                <a class="btn btn-primary" href="{{ route('dashboard') }}">Dashboard</a>
+                @if(auth()->user()->role == 'admin')
+                    <a class="btn btn-primary" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                @endif
+
+                @if(auth()->user()->role == 'staff')
+                    <a class="btn btn-primary" href="{{ route('staff.dashboard') }}">Dashboard</a>
+                @endif
+                
                 <a class="btn btn-success" href="{{ route('students.index') }}">Students</a>
                 @if(auth()->user()->role == 'admin')
                 <a class="btn btn-warning" href="{{ route('departments.index') }}">Departments</a>

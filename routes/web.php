@@ -5,22 +5,30 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StaffDashboardController;
+use App\Http\Controllers\AdminDashboardController;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth','admin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('departments', DepartmentController::class);
+});
+
+Route::middleware(['auth', 'staff'])->group(function () {       // Make sure we should created StaffMiddleware before use this route, if not then need to create
+
+    Route::get('/staff/dashboard', [StaffDashboardController::class, 'index'])->name('staff.dashboard');
+
 });
 
 require __DIR__.'/auth.php';
