@@ -44,8 +44,9 @@
                 <h2 class="mb-4">Student Management System</h2>
                 <a class="btn btn-primary" href="{{ route('dashboard') }}">Dashboard</a>
                 <a class="btn btn-success" href="{{ route('students.index') }}">Students</a>
+                @if(auth()->user()->role == 'admin')
                 <a class="btn btn-warning" href="{{ route('departments.index') }}">Departments</a>
-
+                @endif
 
                 @if(session('success'))
                     <div class="alert alert-success">
