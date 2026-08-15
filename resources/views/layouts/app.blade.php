@@ -55,6 +55,10 @@
                 <a class="btn btn-warning" href="{{ route('departments.index') }}">Departments</a>
                 @endif
 
+                @if(auth()->user()->role == 'admin')
+                    <a class="btn btn-info" href="{{ route('courses.index') }}">Courses</a>
+                @endif
+
                 @if(session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}

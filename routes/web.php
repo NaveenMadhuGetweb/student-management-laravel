@@ -7,15 +7,32 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StaffDashboardController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\CourseController;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    // return view('dashboard');
+    $user = auth()->user();
+
+    if ($user->role === 'admin') {
+        return redirect()->route('admin.dashboard');
+    }
+
+    if ($user->role === 'staff') {
+        return redirect()->route('staff.dashboard');
+    }
+
+    return redirect()->route('pending');
+
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/pending', function () {
+    return view('pending');
+})->middleware('auth')->name('pending');
 
 Route::middleware('auth','admin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -23,6 +40,12 @@ Route::middleware('auth','admin')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('departments', DepartmentController::class);
+    
+
+    // Route::get('/admin/courses', [CourseController::class, 'index'])->name('courses.index');
+    // Route::get('/admin/courses/create', [CourseController::class, 'create'])->name('courses.create');
+    Route::resource('courses', CourseController::class);
+
 });
 
 Route::middleware(['auth', 'staff'])->group(function () {       // Make sure we should created StaffMiddleware before use this route, if not then need to create
