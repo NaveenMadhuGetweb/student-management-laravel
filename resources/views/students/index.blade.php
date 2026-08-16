@@ -2,7 +2,9 @@
 
 @section('content')
 
-<a href="{{ route('students.create') }}" class="btn btn-success">Add Student</a>
+@if(auth()->user()->role == 'admin' || auth()->user()->role == 'staff')
+    <a href="{{ route('students.create') }}" class="btn btn-success">Add Student</a>
+@endif
 
 @if(session('success'))
     <div class="alert alert-success">
