@@ -8,7 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StaffDashboardController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CourseController;
-
+use App\Http\Controllers\SubjectController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,6 +45,7 @@ Route::middleware('auth','admin')->group(function () {
     // Route::get('/admin/courses', [CourseController::class, 'index'])->name('courses.index');
     // Route::get('/admin/courses/create', [CourseController::class, 'create'])->name('courses.create');
     Route::resource('courses', CourseController::class);
+    Route::resource('subjects', SubjectController::class);
 
 });
 

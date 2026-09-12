@@ -58,6 +58,11 @@
                 @if(auth()->user()->role == 'admin')
                     <a class="btn btn-info" href="{{ route('courses.index') }}">Courses</a>
                 @endif
+                
+                @if(auth()->user()->role == 'admin')
+                    <a class="btn btn-secondary" href="{{ route('subjects.index') }}">Subjects</a>
+                @endif
+
 
                 @if(session('success'))
                     <div class="alert alert-success">
